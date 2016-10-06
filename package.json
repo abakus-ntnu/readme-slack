@@ -4,6 +4,8 @@
   "description": "Slack slash command for arkiv.abakus.no",
   "main": "index.js",
   "scripts": {
+    "start": "babel-node app.js",
+    "build": "babel app.js -o dist.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mats Byrkjeland",
@@ -11,5 +13,13 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-preset-es2015": "^6.16.0",
+    "eslint": "^3.7.1",
+    "eslint-config-es2015": "^1.1.0",
+    "eslint-plugin-import": "^2.0.0"
   }
 }
