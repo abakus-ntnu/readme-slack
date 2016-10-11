@@ -1,5 +1,5 @@
 module.exports = {
-    "extends": "es2015",
+    "extends": "airbnb-base",
     "plugins": [
           "import"
     ],
@@ -7,6 +7,11 @@ module.exports = {
       "sourceType": "module"
     },
     "env": {
-      "es6": true
+      "es6": true,
+      "node": true
+    },
+    "rules": {
+      "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js"]}]
     }
+
 };

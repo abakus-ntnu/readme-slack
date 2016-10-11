@@ -1,4 +1,5 @@
 *.sh
 node_modules
 *.tar.gz
-dist.js
+dist
+confluence-credentials.js
