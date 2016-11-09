@@ -6,75 +6,55 @@ const request = require('supertest');
 describe('Routing', () => {
   const url = 'http://localhost:7363';
 
-  const requestAndExpectAll = (endpoint, text, done) => {
+  const requestAndExpect = (endpoint, reqText, expectedStatus, expectedText, done) => {
     request(url)
     .post(`${endpoint[0] === '/' ? '' : '/'}${endpoint}`)
-    .send({ text })
+    .send({ text: reqText })
     // end handles the response
     .end((err, res) => {
       if (err) {
         throw err;
       }
       // this is should.js syntax, very clear
-      res.should.have.property('status', 200);
-      res.body.text.should.equal('Her er alle vinstraffene');
+      res.should.have.property('status', expectedStatus);
+      res.body.text.should.equal(expectedText);
       done();
     });
   };
 
   describe('Vinstraffer readme', () => {
     it('should return all vinstraffer if text is empty string', (done) => {
-      requestAndExpectAll('vinstraffer', '', done);
+      requestAndExpect('vinstraffer', '', 200, 'Her er alle vinstraffene', done);
     });
 
     it('should return all vinstraffer if text is null', (done) => {
-      requestAndExpectAll('vinstraffer', null, done);
+      requestAndExpect('vinstraffer', null, 200, 'Her er alle vinstraffene', done);
     });
 
     it('should return user\'s vinstraffer if text is username', (done) => {
-      const text = 'mats';
+      requestAndExpect('vinstraffer', 'mats', 200, 'Her er mats sine vinstraffer', done);
+    });
 
-      request(url)
-        .post('/vinstraffer')
-        .send({ text })
-          // end handles the response
-        .end((err, res) => {
-          if (err) {
-            throw err;
-          }
-            // this is should.js syntax, very clear
-          res.should.have.property('status', 200);
-          res.body.text.should.equal('Her er mats sine vinstraffer');
-          done();
-        });
+    it('should return no vinstraffer if user has no vinstraffer', (done) => {
+      requestAndExpect('vinstraffer', 'goodboy', 200, 'goodboy har ingen vinstraffer', done);
     });
   });
 
   describe('Vinstraffer backup', () => {
     it('should return all vinstraffer if text is empty string', (done) => {
-      requestAndExpectAll('vinstraffer-backup', '', done);
+      requestAndExpect('vinstraffer-backup', '', 200, 'Her er alle vinstraffene', done);
     });
 
     it('should return all vinstraffer if text is null', (done) => {
-      requestAndExpectAll('vinstraffer-backup', null, done);
+      requestAndExpect('vinstraffer-backup', null, 200, 'Her er alle vinstraffene', done);
     });
 
     it('should return user\'s vinstraffer if text is username', (done) => {
-      const text = 'larsen';
+      requestAndExpect('vinstraffer', 'larsen', 200, 'Her er larsen sine vinstraffer', done);
+    });
 
-      request(url)
-        .post('/vinstraffer-backup')
-        .send({ text })
-          // end handles the response
-        .end((err, res) => {
-          if (err) {
-            throw err;
-          }
-            // this is should.js syntax, very clear
-          res.should.have.property('status', 200);
-          res.body.text.should.equal('Her er larsen sine vinstraffer');
-          done();
-        });
+    it('should return no vinstraffer if user has no vinstraffer', (done) => {
+      requestAndExpect('vinstraffer', 'goodboy', 200, 'goodboy har ingen vinstraffer', done);
     });
   });
 });
