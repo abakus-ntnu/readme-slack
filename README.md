@@ -18,5 +18,5 @@ npm start
 
 #### Build for production
 ```
-npm build
+npm run build
 ```
