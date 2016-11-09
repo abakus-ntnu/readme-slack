@@ -50,11 +50,11 @@ describe('Routing', () => {
     });
 
     it('should return user\'s vinstraffer if text is username', (done) => {
-      requestAndExpect('vinstraffer', 'larsen', 200, 'Her er larsen sine vinstraffer', done);
+      requestAndExpect('vinstraffer-backup', 'larsen', 200, 'Her er larsen sine vinstraffer', done);
     });
 
     it('should return no vinstraffer if user has no vinstraffer', (done) => {
-      requestAndExpect('vinstraffer', 'goodboy', 200, 'goodboy har ingen vinstraffer', done);
+      requestAndExpect('vinstraffer-backup', 'goodboy', 200, 'goodboy har ingen vinstraffer', done);
     });
   });
 });

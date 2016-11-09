@@ -33,21 +33,22 @@ const fetchVinstraffer = (req, res, pageId) => {
     const rgx = /^.*(\|*){6}\|([^\s]+)(.*)\|$/;
 
     const attachments = parsedBody.slice(listStart, listEnd)
-    .split('\n')
-    .filter(line =>
-      !req.body.text
-      || rgx.exec(line) === null
-      || rgx.exec(line)[2].toLowerCase() === req.body.text.toLowerCase())
+      .split('\n')
+      .filter(line =>
+        !req.body.text
+        || rgx.exec(line) === null
+        || rgx.exec(line)[2].toLowerCase() === req.body.text.toLowerCase())
       .map((line) => {
         const regexResult = rgx.exec(line);
-        return {
-          text: regexResult ? `${rgx.exec(line)[2]}${rgx.exec(line)[3]}` : '',
-        };
-      });
+        return regexResult ? {
+          text: `${rgx.exec(line)[2]}${rgx.exec(line)[3]}`,
+        } : null;
+      })
+      .filter(Boolean);
 
     let text = 'Her er alle vinstraffene';
     if (req.body.text && attachments.length === 0) {
-      text = `${req.body.text} har ingen vinstraffer.`;
+      text = `${req.body.text} har ingen vinstraffer`;
     } else if (req.body.text) {
       text = `Her er ${req.body.text} sine vinstraffer`;
     }
