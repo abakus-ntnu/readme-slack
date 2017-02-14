@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
     const l = t.children().map((i, el) => $(el).text()).get().join('');
     return res.json({
       response_type: 'in_channel',
-      text: `*${req.body.text}*\n${t.text().replace(l, '').trim()}`,
+      text: `*${req.body.text}*\n${t.text().replace(l, '').trim()}\n${url}`,
     });
   });
 });
