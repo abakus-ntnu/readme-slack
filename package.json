@@ -6,7 +6,8 @@
   "scripts": {
     "start": "babel-watch app.js",
     "build": "babel app.js confluence-credentials.js -d dist/",
-    "test": "mocha test"
+    "test": "mocha test",
+    "lint": "eslint app.js api/ test/"
   },
   "author": "Mats Byrkjeland",
   "license": "MIT",

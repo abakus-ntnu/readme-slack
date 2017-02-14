@@ -6,7 +6,6 @@ import credentials from '../confluence-credentials';
 const router = new express.Router();
 
 const fetchVinstraffer = (req, res, pageId) => {
-  console.log(req);
   request({
     url: `https://wiki.abakus.no/rest/api/content/${pageId}`,
     headers: {
